@@ -1,8 +1,8 @@
 import { request } from '@/lib/axios'
 import { Challenge } from '@/models'
-import { GetChallengesListRequest } from './types'
+import { GetChallengesListRequest } from '../types'
 
-export const getChallengesList = async (
+export const getChalleddngesList = async (
   req: GetChallengesListRequest
 ): Promise<Array<Challenge>> =>
   request<GetChallengesListRequest, Array<Challenge>>(
