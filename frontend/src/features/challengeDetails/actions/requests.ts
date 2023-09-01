@@ -16,7 +16,7 @@ export const getChallengeDetails = async (
         deadline: 214124512512,
         beneficiary: {
           name: 'Beneficiary name',
-          address: '0x12312',
+          address: '0x1234567890123456789012345678901234567890',
           description: 'Beneficiary description',
           logo: 'https://picsum.photos/200/300',
           url: 'https://google.com'
@@ -26,12 +26,12 @@ export const getChallengeDetails = async (
         jury: [
           {
             name: 'Jury member 1',
-            address: '0x12312',
+            address: '0x1234567890123456789012345678901234567890',
             avatar: 'https://picsum.photos/200/300'
           }
         ],
         owner: {
-          address: '0x12312',
+          address: '0x1234567890123456789012345678901234567890',
           avatar: 'https://picsum.photos/200/300',
           name: 'Owner name'
         },
