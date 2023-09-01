@@ -1,9 +1,3 @@
-const { JSDOM } = require('jsdom');
-
-const dom = new JSDOM();
-(global as any).DOMParser = dom.window.DOMParser;
-// ---- debug <-
-
 const AIRSTACK_API_ENDPOINT: string = "https://api.airstack.xyz/gql";
 const AIRSTACK_API_KEY: string = "7468f364d6bd4943afa09c0ca51d2b94"; // Replace with your API key
 
