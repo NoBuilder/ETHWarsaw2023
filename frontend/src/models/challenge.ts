@@ -20,7 +20,7 @@ export type Beneficiary = {
   url?: string
 }
 
-export type Jury = JuryMember[]
+export type Jury = Array<JuryMember>
 
 export type Challenge = {
   id: number

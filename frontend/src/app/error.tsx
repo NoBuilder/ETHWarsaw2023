@@ -18,7 +18,7 @@ const Error: React.FC<ErrorProps> = ({ error, reset }) => (
         <Button
           asChild
           size="icon"
-          className="bg-white/10 p-0 text-xl text-white hover:bg-white/10"
+          className="bg-white/10 p-0 text-xl hover:bg-white/10"
         >
           <div>
             <Icon
@@ -28,7 +28,7 @@ const Error: React.FC<ErrorProps> = ({ error, reset }) => (
           </div>
         </Button>
       </div>
-      <p className="text-sm text-white/75">
+      <p className="text-sm">
         This was probably our fault.
         <br />
         Please try again in a few minutes.
