@@ -1,6 +1,4 @@
-# Next.js Application Template
-
-This repository contains a Next.js project template. It's designed to provide a solid foundation for building your Next.js applications, with a focus on simplicity, best practices, and modern development tools.
+# Challenge accepted client app
 
 ## Features
 
