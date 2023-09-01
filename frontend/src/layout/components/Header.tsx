@@ -1,6 +1,5 @@
 import { Link } from '@/components'
 import { InternalLink } from '@/config'
-import { HeaderMenu } from './HeaderMenu'
 
 export const Header = () => (
   <header className="layout-container sticky top-0 z-[1] border-b border-b-white/10 bg-black/5 backdrop-blur-xl">
@@ -12,7 +11,6 @@ export const Header = () => (
         >
           👋
         </Link>
-        <HeaderMenu />
       </nav>
     </div>
   </header>
