@@ -15,18 +15,23 @@ interface SocialMediaInfo {
 async function getSocialMediaInfo(ethAddresses: string[]): Promise<SocialMediaInfo[]> {
     const results = await Promise.all(ethAddresses.map(async ethAddress => {
         const ensProfileName = await getENSProfileName(ethAddress);
-        console.log(ensProfileName)
-        let avatarUrl = null;
-        if (ensProfileName) {
-            avatarUrl = getAvatarUrl(ensProfileName);
-        }
+        const avatarUrl = ensProfileName ? getAvatarUrl(ensProfileName) : null;
 
         let info = await getProfileFromDapp(ethAddress, 'farcaster');
         if (!info) {
             info = await getProfileFromDapp(ethAddress, 'lens');
         }
-        if (!info) {
-            info = await getENSProfileInfo(ethAddress);
+        if (!info && ensProfileName) {
+            info = {
+                name: ensProfileName,
+                avatar: avatarUrl,
+                profileInfo: {
+                    dappName: 'ens',
+                    profileName: ensProfileName,
+                    userId: ethAddress,
+                    userAddress: ethAddress
+                }
+            };
         }
 
         if (info) {
@@ -99,27 +104,9 @@ async function getENSProfileName(ethAddress: string): Promise<string | null> {
 
     const responseData = await response.json();
     const data = responseData.data;
-    console.log('DEBUG:', data)
 
     if (data && data.Domain && data.Domain.name) {
         return data.Domain.name;
-    }
-    return null;
-}
-
-async function getENSProfileInfo(ethAddress: string): Promise<SocialMediaInfo | null> {
-    const profileName = await getENSProfileName(ethAddress);
-    if (profileName) {
-        return {
-            name: profileName,
-            avatar: null, // Will be filled later
-            profileInfo: {
-                dappName: 'ens',
-                profileName: profileName,
-                userId: ethAddress, // Assuming userId is the ethAddress for ENS
-                userAddress: ethAddress
-            }
-        };
     }
     return null;
 }
