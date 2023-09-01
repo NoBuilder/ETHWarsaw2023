@@ -14,7 +14,7 @@ export const getChallengesList = async (
     {
       mockData: [
         {
-          deadline: 214124512512,
+          deadline: 1697609989,
           beneficiary: {
             name: 'Beneficiary name',
             address: '0x12312',
@@ -22,7 +22,8 @@ export const getChallengesList = async (
             logo: 'https://picsum.photos/200/300',
             url: 'https://google.com'
           },
-          description: 'Challenge description',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod',
           id: 1,
           jury: [
             {
@@ -40,7 +41,7 @@ export const getChallengesList = async (
           title: 'Challenge title'
         },
         {
-          deadline: 214124512512,
+          deadline: 1697609989,
           beneficiary: {
             name: 'Beneficiary name',
             address: '0x12312',
@@ -66,7 +67,7 @@ export const getChallengesList = async (
           title: 'Challenge title'
         },
         {
-          deadline: 214124512512,
+          deadline: 1697609989,
           beneficiary: {
             name: 'Beneficiary name',
             address: '0x12312',
@@ -92,7 +93,7 @@ export const getChallengesList = async (
           title: 'Challenge title'
         },
         {
-          deadline: 214124512512,
+          deadline: 1697609989,
           beneficiary: {
             name: 'Beneficiary name',
             address: '0x12312',
