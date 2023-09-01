@@ -51,11 +51,10 @@ export const buttonVariants = cva(
       variant: {
         default:
           'bg-primary text-black hover:bg-primary-600 disabled:bg-primary-400',
-        destructive:
-          'bg-error text-white hover:bg-error-600 disabled:bg-error-400',
+        destructive: 'bg-error hover:bg-error-600 disabled:bg-error-400',
         outline:
           'border border-primary hover:border-primary-600 hover:text-primary-600 text-primary disabled:border-primary-400 disabled:text-primary-400',
-        ghost: 'text-white hover:bg-gray/10 disabled:text-gray',
+        ghost: 'hover:bg-gray/10 disabled:text-gray',
         link: 'text-primary underline-offset-4 hover:underline disabled:text-primary-400'
       },
       size: {

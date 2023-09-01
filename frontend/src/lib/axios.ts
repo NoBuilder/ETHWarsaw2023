@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios'
-import { z } from 'zod'
 import { AXIOS_TIMEOUT } from '@/config'
 
 const AXIOS_CONFIG_DEFAULTS = {
@@ -11,10 +10,6 @@ const AXIOS_CONFIG_DEFAULTS = {
 
 export const AXIOS_CLIENT = axios.create(AXIOS_CONFIG_DEFAULTS)
 
-type SchemaParams<TReq extends z.ZodTypeAny, TRes extends z.ZodTypeAny> = {
-  reqSchema: TReq
-  resSchema: TRes
-}
 type HTTPMethod = 'get' | 'post' | 'put' | 'delete' | 'patch'
 type RequestParams<T> = {
   method: HTTPMethod
@@ -29,27 +24,18 @@ type MockParams<T> = {
   errorMessage?: string
 }
 
-export const request = async <
-  TReq extends z.ZodTypeAny,
-  TRes extends z.ZodTypeAny
->(
-  schemaParams: SchemaParams<TReq, TRes>,
-  params: RequestParams<z.infer<TReq>>,
-  mockParams?: MockParams<z.infer<TRes>>
-): Promise<z.infer<TRes>> => {
+export const request = async <TReq, TRes>(
+  params: RequestParams<TReq>,
+  mockParams?: MockParams<TRes>
+): Promise<TRes> => {
   try {
-    schemaParams.reqSchema.parse(params.req)
-
     if (mockParams) {
       return await fetchMockData(mockParams)
     }
 
-    const response = await axiosFetch<z.infer<TReq>, z.infer<TRes>>(
-      params,
-      AXIOS_CLIENT
-    )
+    const response = await axiosFetch<TReq, TRes>(params, AXIOS_CLIENT)
 
-    return await schemaParams.resSchema.parse(response.data)
+    return response.data
   } catch (error) {
     throw error
   }

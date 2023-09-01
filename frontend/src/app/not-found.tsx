@@ -16,7 +16,7 @@ const Custom404Page = () => (
         <Button
           asChild
           size="icon"
-          className="bg-white/10 p-0 text-xl text-white hover:bg-white/10"
+          className="bg-white/10 p-0 text-xl hover:bg-white/10"
         >
           <div>
             <Icon
@@ -26,7 +26,7 @@ const Custom404Page = () => (
           </div>
         </Button>
       </div>
-      <p className="text-sm text-white/75">
+      <p className="text-sm">
         Sorry, the page you are looking for doesn&apos;t exist.
         <br />
         Click below to go to homepage.

@@ -18,7 +18,7 @@ const InputRaw = React.forwardRef<HTMLInputElement, InputRawProps>(
     <input
       type={type}
       className={cn(
-        'w-full bg-transparent text-sm text-white placeholder:text-white/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        'w-full bg-transparent text-sm  focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       ref={ref}
