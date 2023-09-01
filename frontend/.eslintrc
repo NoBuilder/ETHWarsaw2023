@@ -1,0 +1,107 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["next", "next/core-web-vitals", "prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "arrowParens": "avoid",
+        "bracketSameLine": false,
+        "singleAttributePerLine": true,
+        "trailingComma": "none"
+      }
+    ],
+    "camelcase": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
+      }
+    ],
+    "quotes": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
+    "no-implicit-coercion": "error",
+    "@typescript-eslint/array-type": [
+      "error",
+      {
+        "default": "generic"
+      }
+    ],
+    "object-property-newline": [
+      "error",
+      {
+        "allowMultiplePropertiesPerLine": false
+      }
+    ],
+    "arrow-body-style": ["error", "as-needed"],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": "if",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "if"
+      },
+      {
+        "blankLine": "never",
+        "prev": "if",
+        "next": "if"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "try"
+      },
+      {
+        "blankLine": "always",
+        "prev": "switch",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "switch"
+      }
+    ],
+    "no-else-return": ["error"]
+  },
+  "overrides": [
+    {
+      "files": "**/*.+(ts|tsx)",
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint/eslint-plugin"],
+      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "no-use-before-define": [0],
+        "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }]
+      }
+    }
+  ]
+}
