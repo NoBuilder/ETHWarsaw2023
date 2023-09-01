@@ -51,7 +51,7 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
         <p className="text-lg font-light text-gray-500">{description}</p>
         <Countdown timestamp={deadline} />
         <h4 className="text-xl font-semibold text-gray-500">Beneficent</h4>
-        <div className="relative h-14 w-14 overflow-hidden rounded-full">
+        <div className="relative h-16 w-16 overflow-hidden rounded-full">
           <Image
             src={
               beneficent.logo ||
@@ -68,7 +68,7 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
               key={member.name}
               className="flex flex-col items-center gap-2"
             >
-              <div className="relative h-14 w-14 overflow-hidden rounded-full">
+              <div className="relative h-12 w-12 overflow-hidden rounded-full">
                 <Image
                   src={
                     member.avatar ||
