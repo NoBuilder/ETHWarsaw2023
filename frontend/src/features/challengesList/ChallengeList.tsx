@@ -2,16 +2,11 @@
 
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { QueryKey } from '@/lib/reactQuery'
-import { Challenge } from '@/models'
 import { getChallenge } from '../challengeDetails/actions/'
 import { ChallengeCard } from './ChallnegeCard'
 import { getLastId } from './actions'
 
-type ChallengeListProps = {
-  challenges: Array<Challenge>
-}
-
-export const ChallengeList: React.FC<ChallengeListProps> = ({ challenges }) => {
+export const ChallengeList: React.FC = () => {
   const { data: lastChallengeId } = useQuery([QueryKey.getLastId], () =>
     getLastId()
   )
@@ -31,7 +26,7 @@ export const ChallengeList: React.FC<ChallengeListProps> = ({ challenges }) => {
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-4">
-      {dataResults?.map((challenge, index) => (
+      {dataResults?.map((_challenge, index) => (
         <ChallengeCard
           key={index}
           id={index}

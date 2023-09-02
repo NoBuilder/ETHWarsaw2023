@@ -1,15 +1,12 @@
 import { request } from '@/lib/axios'
 import { Challenge } from '@/models'
-import { GetChallengesListRequest } from '../types'
 
-export const getChallengesList = async (
-  req: GetChallengesListRequest
-): Promise<Array<Challenge>> =>
-  request<GetChallengesListRequest, Array<Challenge>>(
+export const getChallengesList = async (): Promise<Array<Challenge>> =>
+  request<undefined, Array<Challenge>>(
     {
       method: 'get',
       url: '/challenge/1',
-      req
+      req: undefined
     },
     {
       mockData: [

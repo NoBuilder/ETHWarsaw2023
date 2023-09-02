@@ -1,11 +1,10 @@
-import { useAccount, useMutation } from 'wagmi'
+import { useMutation } from 'wagmi'
 import { Button, LoaderCircle } from '@/components'
 import { QueryKey } from '@/lib/reactQuery'
 import { signTransaction } from '../actions/requests'
 
 type JuryButtonsProps = {
   safeAddress: string
-  // judgeAddress:string
 }
 
 export const JuryButtons: React.FC<JuryButtonsProps> = ({ safeAddress }) => {
@@ -15,6 +14,7 @@ export const JuryButtons: React.FC<JuryButtonsProps> = ({ safeAddress }) => {
     [QueryKey.signTransaction],
     () => signTransaction({ safeAddress, transactionHash: txHash })
   )
+
   return (
     <div className="flex w-full justify-center gap-4 pt-4">
       {isSuccess ? (

@@ -10,6 +10,7 @@ export const getJudges = async ({ safeAddress }: { safeAddress: string }) => {
   const gnosis = await getGnosis()
   const safeInfo = await gnosis.safeService.getSafeInfo(safeAddress)
   console.warn('safeInfo', safeInfo)
+
   return safeInfo
 }
 
@@ -33,6 +34,7 @@ export const getChallenge = async (req: GetChallengeRequest) => {
   )
   const challenge = await contract.challengeById(ethers.BigNumber.from(req.id))
   console.warn('challenge', challenge)
+
   return challenge
 }
 

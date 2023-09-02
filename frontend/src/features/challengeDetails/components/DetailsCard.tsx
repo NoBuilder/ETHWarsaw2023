@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Image } from '@/components'
 import { QueryKey } from '@/lib/reactQuery'
 import { Beneficiary, JuryMember } from '@/models'
-import { getChallenge, getJudges } from '../actions/requests'
+import { getChallenge } from '../actions'
 import { Countdown } from './Countdown'
 import { Jury } from './Jury'
 
@@ -38,7 +38,7 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
 
   const safeAddress = challenge?.safe
 
-  const { data: judges } = useQuery([], () => getJudges({ safeAddress }))
+  // const { data: judges } = useQuery([], () => getJudges({ safeAddress }))
 
   return (
     <article className="flex w-full max-w-xl flex-col  overflow-hidden rounded-3xl shadow-xl">
@@ -92,23 +92,19 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
             <Image
               width={80}
               height={50}
-              src={'https://i.imgur.com/fyrJi0R.png'}
+              src="https://i.imgur.com/fyrJi0R.png"
               alt="powered by celo"
             />
             <Image
               width={80}
               height={50}
-              src={
-                'https://www.forex.academy/wp-content/uploads/2020/10/1_DZopze1Xtir7mZHraVNZ_w.png'
-              }
+              src="https://www.forex.academy/wp-content/uploads/2020/10/1_DZopze1Xtir7mZHraVNZ_w.png"
               alt="powered by gnosis"
             />
             <Image
               width={80}
               height={50}
-              src={
-                'https://pbs.twimg.com/media/FUuoMNKWAAIiZ0B?format=jpg&name=large'
-              }
+              src="https://pbs.twimg.com/media/FUuoMNKWAAIiZ0B?format=jpg&name=large"
               alt="powered by ethwarsaw"
             />
           </div>

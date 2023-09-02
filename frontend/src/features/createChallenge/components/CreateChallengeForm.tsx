@@ -30,7 +30,7 @@ import AvatarPlaceholder from '@/public/images/judge-avatar.webp'
 import { Address } from '@/types'
 import { cn } from '@/utils'
 import { getRelatedAddressesByTokenTransfer } from '@/utils/airstack'
-import { BENEFICIARIES, DEFAULT_JURY_ADDRESSES } from '../constants'
+import { BENEFICIARIES } from '../constants'
 import { useCreateChallenge } from '../hooks'
 import {
   CreateChallengeFormSchema,
@@ -58,19 +58,14 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
     isLoading,
     address
   } = useCreateChallenge()
-  const {
-    data,
-    isLoading: isJuryLoading,
-    error: juryError
-  } = useQuery(
+  const { data } = useQuery(
     ['jury'],
-    () => {
-      return getRelatedAddressesByTokenTransfer(
+    () =>
+      getRelatedAddressesByTokenTransfer(
         '0x6f73ea756bd57d3adcafb73a4f5fcd750ec1c387'
-      )
-    },
+      ),
     {
-      enabled: !!address,
+      enabled: Boolean(address),
       select(data) {
         return data?.map(address => ({
           address: address.profileInfo.userAddress,
@@ -161,7 +156,7 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={'outline'}
+                      variant="outline"
                       className={cn(
                         'w-full justify-start border-input text-left font-secondary font-normal capitalize',
                         !value && 'text-muted-foreground'

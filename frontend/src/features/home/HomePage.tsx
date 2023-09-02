@@ -1,7 +1,6 @@
 import { AppName } from '@/config'
 import { getSocialMediaInfo } from '@/utils/airstack'
 import { ChallengeList } from '../challengesList'
-import { getChallengesList } from './actions'
 
 export const HomePage = async () => {
   const addressees = [
@@ -10,7 +9,6 @@ export const HomePage = async () => {
     '0x16D6dF27993D0aEcE005F0a94107229f3843Bcf6'
   ]
 
-  const list = await getChallengesList({})
   const socialMedia = await getSocialMediaInfo(addressees)
   console.log('socialMedia', socialMedia)
 
@@ -19,7 +17,7 @@ export const HomePage = async () => {
       <h1 className="font-main text-4xl font-extrabold text-primary max-sm:text-3xl">
         {AppName}!
       </h1>
-      <ChallengeList challenges={list} />
+      <ChallengeList />
     </section>
   )
 }
