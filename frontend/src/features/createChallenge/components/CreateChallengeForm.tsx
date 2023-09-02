@@ -1,6 +1,8 @@
 'use client'
 
+import { format, fromUnixTime, getUnixTime } from 'date-fns'
 import { Field, Form } from 'houseform'
+import { CalendarIcon } from 'lucide-react'
 import {
   Button,
   Input,
@@ -9,12 +11,20 @@ import {
   StatusMessage,
   Textarea
 } from '@/components'
+import { Calendar } from '@/components/ui/calendar'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
+import { cn } from '@/utils'
 import { useCreateChallenge } from '../hooks'
 import {
   CreateChallengeFormSchema,
   createChallengeFormTitleSchema,
   createChallengeFormDescriptionSchema,
-  createChallengeFormBountySchema
+  createChallengeFormBountySchema,
+  createChallengeFormEndDateSchema
 } from '../schemas'
 
 export const CreateChallengeForm = () => {
@@ -34,13 +44,13 @@ export const CreateChallengeForm = () => {
   return (
     <Form<CreateChallengeFormSchema>
       onSubmit={data => {
-        // TODO get proper beneficiary address, endDate and gnosisSafe
+        // TODO get proper beneficiary address, and gnosisSafe
         if (address) {
           createChallenge({
             title: data.title,
             address,
             beneficiary: MOCKED_BENEFICIARY_ADDRESS,
-            endDate: 213124124,
+            endDate: data.endDate,
             value: data.bounty,
             juryAddress: [
               '0xb67efa83b4f7e5bbe367e2a410ad3899d019d847',
@@ -120,6 +130,42 @@ export const CreateChallengeForm = () => {
                 label="Stake"
                 errorMessage={errors}
               />
+            )}
+          </Field>
+          <Field<CreateChallengeFormSchema['endDate']>
+            name="endDate"
+            onBlurValidate={createChallengeFormEndDateSchema}
+            onChangeValidate={
+              isSubmitted ? createChallengeFormEndDateSchema : undefined
+            }
+          >
+            {({ value, setValue }) => (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={'outline'}
+                    className={cn(
+                      'w-full justify-start border-input text-left font-normal',
+                      !value && 'text-muted-foreground'
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {value ? (
+                      format(fromUnixTime(value), 'PPP')
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={fromUnixTime(value)}
+                    onSelect={date => setValue(getUnixTime(date as Date))}
+                    fromDate={new Date()}
+                  />
+                </PopoverContent>
+              </Popover>
             )}
           </Field>
           {isConnected ? (
