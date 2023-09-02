@@ -4,7 +4,8 @@ export const createChallengeFormSchema = z.object({
   title: z.string().min(3).max(255),
   description: z.string().min(3).max(255),
   endDate: z.number(),
-  bounty: z.number().gt(0)
+  bounty: z.number().gt(0),
+  beneficiary: z.string()
 })
 
 export const createChallengeFormTitleSchema =
@@ -15,6 +16,8 @@ export const createChallengeFormEndDateSchema =
   createChallengeFormSchema.shape.endDate
 export const createChallengeFormBountySchema =
   createChallengeFormSchema.shape.bounty
+export const createChallengeFormBeneficiarySchema =
+  createChallengeFormSchema.shape.beneficiary
 
 export type CreateChallengeFormSchema = z.infer<
   typeof createChallengeFormSchema
