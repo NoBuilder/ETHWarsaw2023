@@ -191,7 +191,7 @@ type TokenTransfer = {
   type: string
 }
 
-async function getRelatedAddressesByTokenTransfer(
+export async function getRelatedAddressesByTokenTransfer(
   userEthAddress: string
 ): Promise<Array<SocialMediaInfo>> {
   const query = `

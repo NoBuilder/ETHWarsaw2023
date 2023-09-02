@@ -1,1 +1,1 @@
-export { getChallengeDetails } from './requests'
+export { getChallengeDetails, getChallenge } from './requests'

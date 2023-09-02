@@ -13,5 +13,10 @@ export const queryClient = new QueryClient({
 })
 
 export const QueryKey = {
-  createChallenge: 'createChallenge'
+  createChallenge: 'createChallenge',
+  getChallenge: 'getChallenge',
+  getChallenges: 'getChallenges',
+  getLastId: 'getLastId',
+  getJury: 'getJury',
+  signTransaction: 'signTransaction'
 }

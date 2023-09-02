@@ -1,12 +1,16 @@
+'use client'
+
 import { Challenge } from '@/models'
 import { DetailsCard } from './components'
 
 type ChallengeDetailsPageProps = {
   challenge: Challenge
+  challengeId: string
 }
 
 export const ChallengeDetailsPage: React.FC<ChallengeDetailsPageProps> = ({
-  challenge
+  challenge,
+  challengeId
 }) => (
   <section className="layout-section flex-1 items-center justify-center">
     <DetailsCard
@@ -19,6 +23,7 @@ export const ChallengeDetailsPage: React.FC<ChallengeDetailsPageProps> = ({
       deadline={challenge.deadline}
       beneficiary={challenge.beneficiary}
       jury={challenge.jury}
+      challengeId={challengeId}
     />
   </section>
 )

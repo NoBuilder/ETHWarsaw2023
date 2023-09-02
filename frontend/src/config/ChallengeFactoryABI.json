@@ -100,6 +100,12 @@
         "internalType": "address",
         "name": "beneficiary",
         "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "safe",
+        "type": "address"
       }
     ],
     "name": "ChallengeCreated",

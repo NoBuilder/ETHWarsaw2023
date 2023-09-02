@@ -1,12 +1,17 @@
+'use client'
+
 import { providers } from 'ethers'
 import { configureChains, createConfig } from 'wagmi'
-import { celoAlfajores } from 'wagmi/chains'
+import { celo } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
-export const provider = new providers.Web3Provider(window.ethereum, 'any')
+export const provider =
+  typeof window !== 'undefined' && typeof window?.ethereum !== 'undefined'
+    ? new providers.Web3Provider(window.ethereum, 'any')
+    : undefined
 
 const { publicClient, webSocketPublicClient } = configureChains(
-  [celoAlfajores],
+  [celo],
   [publicProvider()]
 )
 

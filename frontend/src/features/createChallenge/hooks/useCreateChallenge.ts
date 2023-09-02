@@ -6,7 +6,9 @@ import {
 } from '@wagmi/core'
 import { ContractFunctionExecutionError, parseEther } from 'viem'
 import { useAccount, useConnect } from 'wagmi'
-import abi from '@/config/ChallengeFactoryABI.json'
+import { redirect } from 'next/navigation'
+import { InternalLink } from '@/config'
+import { contractDetails } from '@/config/contract'
 import { deploySafe } from '@/lib/gnosis'
 import { QueryKey } from '@/lib/reactQuery'
 import { Address } from '@/types'
@@ -20,7 +22,6 @@ type CreateChallengeProps = {
   juryAddress: Array<Address>
 }
 const onCreateChallenge = async ({
-  address,
   beneficiary,
   endDate,
   title,
@@ -29,13 +30,13 @@ const onCreateChallenge = async ({
 }: CreateChallengeProps) => {
   const safe = await deploySafe({
     owners: juryAddress,
-    threshold: 2
+    threshold: 1
   })
   const gnosisSafeAddress = await safe.getAddress()
 
   const config = await prepareWriteContract({
-    address,
-    abi: abi,
+    address: contractDetails.address,
+    abi: contractDetails.abi,
     functionName: 'create',
     args: [title, endDate, beneficiary, gnosisSafeAddress],
     value: parseEther(value.toString())
@@ -58,7 +59,14 @@ export const useCreateChallenge = () => {
   const { connect, connectors } = useConnect()
   const { data, isLoading, error, mutate } = useMutation(
     [QueryKey.createChallenge],
-    onCreateChallenge
+    onCreateChallenge,
+    {
+      onSuccess: () => {
+        setTimeout(() => {
+          redirect(InternalLink.home as string)
+        }, 2000)
+      }
+    }
   )
 
   return {

@@ -7,10 +7,11 @@ import AvatarPlaceholder from '@/public/images/judge-avatar.webp'
 import { JuryButtons } from './JuryButtons'
 
 type JuryProps = {
-  jury: JuryMember[]
+  jury: Array<JuryMember>
+  safeAddress: string
 }
 
-export const Jury: React.FC<JuryProps> = ({ jury }) => {
+export const Jury: React.FC<JuryProps> = ({ jury, safeAddress }) => {
   const { address } = useAccount()
   const isJudge = jury.some(member => member.address === address)
 
@@ -39,7 +40,7 @@ export const Jury: React.FC<JuryProps> = ({ jury }) => {
           </div>
         ))}
       </div>
-      {isJudge && <JuryButtons />}
+      {isJudge && <JuryButtons safeAddress={safeAddress} />}
     </div>
   )
 }
