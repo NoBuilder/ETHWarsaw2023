@@ -10,6 +10,7 @@ export const ChallengeList: React.FC<ChallengeListProps> = ({ challenges }) => (
     {challenges?.map(challenge => (
       <ChallengeCard
         key={challenge.id}
+        id={challenge.id}
         title={challenge.title}
         stake={challenge.stake}
         ownerName={challenge.owner.name}

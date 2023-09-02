@@ -10,7 +10,7 @@ type DetailsCardProps = {
   ownerAddress?: string
   ownerAvatar?: string
   deadline: number
-  beneficent: Beneficiary
+  beneficiary: Beneficiary
   jury: Array<JuryMember>
 }
 
@@ -22,7 +22,7 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
   ownerAddress,
   ownerAvatar,
   deadline,
-  beneficent,
+  beneficiary,
   jury
 }) => (
   <article className="flex w-full max-w-xl flex-col  overflow-hidden rounded-3xl shadow-xl">
@@ -50,18 +50,18 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
         <h3 className="mb-2 text-3xl font-bold text-gray-800">{ownerName}</h3>
         <p className="text-lg font-light text-gray-500">{description}</p>
         <Countdown timestamp={deadline} />
-        <h4 className="text-xl font-semibold text-gray-500">Beneficent</h4>
+        <h4 className="text-xl font-semibold text-gray-500">Beneficiary</h4>
         <div className="relative h-16 w-16 overflow-hidden rounded-full">
           <Image
             src={
-              beneficent.logo ||
+              beneficiary.logo ||
               'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010'
             }
             fill
-            alt={beneficent.name}
+            alt={beneficiary.name}
           />
         </div>
-        <p className="text-sm font-semibold ">{beneficent.name}</p>
+        <p className="text-sm font-semibold ">{beneficiary.name}</p>
         <div className="flex flex-wrap justify-center gap-6">
           {jury.map(member => (
             <div

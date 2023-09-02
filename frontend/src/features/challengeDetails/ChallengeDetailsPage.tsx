@@ -17,7 +17,7 @@ export const ChallengeDetailsPage: React.FC<ChallengeDetailsPageProps> = ({
       ownerAddress={challenge.owner.address}
       ownerAvatar={challenge.owner.avatar}
       deadline={challenge.deadline}
-      beneficent={challenge.beneficiary}
+      beneficiary={challenge.beneficiary}
       jury={challenge.jury}
     />
   </section>

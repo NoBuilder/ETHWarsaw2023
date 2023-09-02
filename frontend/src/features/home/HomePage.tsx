@@ -8,9 +8,8 @@ export const HomePage = async () => {
 
   return (
     <section className="layout-section items-start gap-8">
-      <h1 className="font-main text-4xl font-extrabold max-sm:text-3xl">
-        <span className="font-secondary text-primary">{AppName}</span> Next.js
-        13 Starter
+      <h1 className="font-main text-4xl font-extrabold text-primary max-sm:text-3xl">
+        {AppName}!
       </h1>
       <ChallengeList challenges={list} />
     </section>

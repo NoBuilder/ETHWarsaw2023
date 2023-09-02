@@ -1,7 +1,8 @@
-import { format, fromUnixTime } from 'date-fns'
-import { Image } from '@/components'
+import { Image, Link } from '@/components'
+import { unixToDate } from '@/utils'
 
 type ChallengeCardProps = {
+  id: number
   title: string
   stake: number
   deadline: number
@@ -10,13 +11,18 @@ type ChallengeCardProps = {
 }
 
 export const ChallengeCard: React.FC<ChallengeCardProps> = ({
+  id,
   title,
   stake,
   ownerName,
   ownerAvatar,
   deadline
 }) => (
-  <div className="flex h-[200px] w-[350px] max-w-xl flex-col  overflow-hidden rounded-3xl shadow-xl">
+  // <Link href={`/${id}`}>
+  <Link
+    href={`/${id}`}
+    className="flex h-[200px] w-[350px] max-w-xl flex-col  overflow-hidden rounded-3xl shadow-xl"
+  >
     <div className="flex h-[50px] flex-col items-center justify-center bg-primary/90 px-6 py-2">
       <h2 className="text-xl text-white">{title}</h2>
     </div>
@@ -35,13 +41,13 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({
         />
       </div>
 
-      <div className="flex flex-col h-full pb-4 justify-end">
+      <div className="flex h-full flex-col justify-end pb-4">
         <h2 className="text-lg text-black">${stake}</h2>
-        <h2 className="text-sm text-black">{`Deadline: ${format(
-          fromUnixTime(deadline),
-          'dd.MM.yyyy'
-        )}`}</h2>
+        <h2 className="text-sm text-black">
+          {`Deadline: ${unixToDate(deadline)}`}
+        </h2>
       </div>
     </div>
-  </div>
+    {/* </div> */}
+  </Link>
 )
