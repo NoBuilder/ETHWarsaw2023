@@ -7,6 +7,7 @@ import {
 import { ContractFunctionExecutionError, parseEther } from 'viem'
 import { useAccount, useConnect } from 'wagmi'
 import abi from '@/config/ChallengeFactoryABI.json'
+import { deploySafe } from '@/lib/gnosis'
 import { QueryKey } from '@/lib/reactQuery'
 import { Address } from '@/types'
 
@@ -16,22 +17,27 @@ type CreateChallengeProps = {
   beneficiary: string
   address: Address
   value: number
+  juryAddress: Array<Address>
 }
 const onCreateChallenge = async ({
   address,
   beneficiary,
   endDate,
   title,
-  value
+  value,
+  juryAddress
 }: CreateChallengeProps) => {
-  // TODO: get gnosis safe address from gnosis SDK
-  const gnosisSafe = address
+  const safe = await deploySafe({
+    owners: juryAddress,
+    threshold: 2
+  })
+  const gnosisSafeAddress = await safe.getAddress()
 
   const config = await prepareWriteContract({
     address,
     abi: abi,
     functionName: 'create',
-    args: [title, endDate, beneficiary, gnosisSafe],
+    args: [title, endDate, beneficiary, gnosisSafeAddress],
     value: parseEther(value.toString())
   })
 
