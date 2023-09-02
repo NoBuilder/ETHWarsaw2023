@@ -1,16 +1,16 @@
 export const BENEFICIARIES = [
   {
-    title: 'Greenpeace',
+    title: 'Grameen Foundation',
     description:
-      'Greenpeace is a non-governmental environmental organization with offices in over 55 countries and an international coordinating body in Amsterdam, the Netherlands.',
-    logoUrl: 'https://placekitten.com/200/300',
+      "Grameen Foundation invests in the power of women living in poverty and hunger. Together, let's dismantle the economic and social barriers that stand in their way.",
+    logoUrl: 'https://grameenfoundation.org/images/favicon-32x32.png',
     address: '0x5B38Da6a701c568545dCfcB03FcB875f56beddC4'
   },
   {
-    title: 'WWF',
+    title: 'Kolektivo',
     description:
-      'The World Wide Fund for Nature is an international non-governmental organization founded in 1961 that works in the field of wilderness preservation and the reduction of human impact on the environment.',
-    logoUrl: 'https://placekitten.com/200/300',
+      'Enabling changemakers with cutting-edge technology to achieve regenerative developments in local communities.',
+    logoUrl: 'https://uploads-ssl.webflow.com/5fcaa3a6fcb269f7778d1f87/64a84f29165b777c6427aa63_Favicon.png',
     address: '0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2'
   }
 ]
