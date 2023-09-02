@@ -45,12 +45,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export const buttonVariants = cva(
-  'inline-flex items-center py-3 text-base leading-4 justify-center gap-1 uppercase font-main ring-offset-white/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed',
+  'inline-flex items-center py-3 text-base leading-4 rounded-sm justify-center gap-1 uppercase disabled:opacity-50 font-main ring-offset-white/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        default:
-          'bg-primary text-black hover:bg-primary-600 disabled:bg-primary-400',
+        default: 'bg-primary text-white hover:bg-primary/90',
         destructive: 'bg-error hover:bg-error-600 disabled:bg-error-400',
         outline:
           'border border-primary hover:border-primary-600 hover:text-primary-600 text-primary disabled:border-primary-400 disabled:text-primary-400',

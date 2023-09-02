@@ -20,9 +20,9 @@ export const StatusMessage: React.FC<StatusMessageProps> = ({
 const statusMessageVariants = cva('text-sm', {
   variants: {
     variant: {
-      info: 'text-gray-400',
-      success: 'text-success',
-      error: 'text-error'
+      info: 'text-gray-500',
+      success: 'text-green-500',
+      error: 'text-red-500'
     }
   }
 })
