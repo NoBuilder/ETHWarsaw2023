@@ -1,8 +1,9 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
 import { format, fromUnixTime, getUnixTime } from 'date-fns'
 import { Field, Form } from 'houseform'
-import { CalendarIcon } from 'lucide-react'
+import { CalendarIcon, CheckIcon } from 'lucide-react'
 import {
   Button,
   Input,
@@ -22,11 +23,14 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectTrigger,
-  SelectValue
+  SelectTrigger
 } from '@/components/ui/select'
+import { JuryMember } from '@/models'
+import AvatarPlaceholder from '@/public/images/judge-avatar.webp'
+import { Address } from '@/types'
 import { cn } from '@/utils'
-import { BENEFICIARIES } from '../constants'
+import { getRelatedAddressesByTokenTransfer } from '@/utils/airstack'
+import { BENEFICIARIES, DEFAULT_JURY_ADDRESSES } from '../constants'
 import { useCreateChallenge } from '../hooks'
 import {
   CreateChallengeFormSchema,
@@ -34,10 +38,17 @@ import {
   createChallengeFormDescriptionSchema,
   createChallengeFormBountySchema,
   createChallengeFormEndDateSchema,
-  createChallengeFormBeneficiarySchema
+  createChallengeFormBeneficiarySchema,
+  createChallengeFormJurySchema
 } from '../schemas'
 
-export const CreateChallengeForm = () => {
+type CreateChallengeFormProps = {
+  jury: Array<JuryMember>
+}
+
+export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
+  jury
+}) => {
   const {
     isConnected,
     isConnecting,
@@ -47,11 +58,34 @@ export const CreateChallengeForm = () => {
     isLoading,
     address
   } = useCreateChallenge()
+  const {
+    data,
+    isLoading: isJuryLoading,
+    error: juryError
+  } = useQuery(
+    ['jury'],
+    () => {
+      return getRelatedAddressesByTokenTransfer(
+        '0x6f73ea756bd57d3adcafb73a4f5fcd750ec1c387'
+      )
+    },
+    {
+      enabled: !!address,
+      select(data) {
+        return data?.map(address => ({
+          address: address.profileInfo.userAddress,
+          name: address.name,
+          avatar: address.avatar || undefined
+        }))
+      }
+    }
+  )
+
+  const recommendedJury = [...jury, ...(data || [])]
 
   return (
     <Form<CreateChallengeFormSchema>
       onSubmit={data => {
-        // TODO get proper juryAddress
         if (address) {
           createChallenge({
             title: data.title,
@@ -59,11 +93,7 @@ export const CreateChallengeForm = () => {
             beneficiary: data.beneficiary,
             endDate: data.endDate,
             value: data.bounty,
-            juryAddress: [
-              '0xb67efa83b4f7e5bbe367e2a410ad3899d019d847',
-              '0xeA22ADf19f20D618D8EF66E4704C540A10708F1F',
-              '0x16D6dF27993D0aEcE005F0a94107229f3843Bcf6'
-            ]
+            juryAddress: data.jury as Array<Address>
           })
         }
       }}
@@ -225,6 +255,58 @@ export const CreateChallengeForm = () => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+            )}
+          </Field>
+          <Field<CreateChallengeFormSchema['jury']>
+            name="jury"
+            onBlurValidate={createChallengeFormJurySchema}
+            onChangeValidate={
+              isSubmitted ? createChallengeFormJurySchema : undefined
+            }
+            initialValue={[]}
+          >
+            {({ value, setValue }) => (
+              <div className="flex flex-col gap-3">
+                <Label>Jury</Label>
+                <div className="flex flex-wrap gap-6">
+                  {recommendedJury.map(member => (
+                    <Button
+                      key={member.name}
+                      className="flex flex-col items-center gap-2 p-0"
+                      variant="ghost"
+                      onClick={() => {
+                        if (value.includes(member.address)) {
+                          setValue(
+                            value.filter(address => address !== member.address)
+                          )
+                        } else {
+                          setValue([...value, member.address])
+                        }
+                      }}
+                    >
+                      <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                        <Image
+                          src={member.avatar || AvatarPlaceholder}
+                          fill
+                          alt={member.name}
+                        />
+                        {value.includes(member.address) && (
+                          <div className="absolute inset-0 flex h-full w-full items-center justify-center rounded-full bg-primary/50">
+                            <CheckIcon className="stroke-white" />
+                          </div>
+                        )}
+                      </div>
+                      <p
+                        className={`text-xs text-gray-500 ${
+                          address === member.address && 'text-primary'
+                        }`}
+                      >
+                        {member.name}
+                      </p>
+                    </Button>
+                  ))}
+                </div>
               </div>
             )}
           </Field>
