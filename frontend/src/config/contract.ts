@@ -1,6 +1,7 @@
-import * as abi from './ChallengeFactoryABI.json'
+import { Address } from '@/types'
+import abi from './ChallengeFactoryABI.json'
 
-const address: `0x${string}` = '0x7d44b7CCF991Bd5f8383F4e13Bec5333B32f9d41'
+const address: Address = '0x678B51ADAcB37D837896994052C69694b06Be663'
 
 export const contractDetails = {
   abi,
