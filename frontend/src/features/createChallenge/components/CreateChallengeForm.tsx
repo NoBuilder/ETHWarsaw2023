@@ -38,7 +38,12 @@ export const CreateChallengeForm = () => {
             address,
             beneficiary: address,
             endDate: 213124124,
-            value: data.bounty
+            value: data.bounty,
+            juryAddress: [
+              '0xb67efa83b4f7e5bbe367e2a410ad3899d019d847',
+              '0xeA22ADf19f20D618D8EF66E4704C540A10708F1F',
+              '0x16D6dF27993D0aEcE005F0a94107229f3843Bcf6'
+            ]
           })
         }
       }}
