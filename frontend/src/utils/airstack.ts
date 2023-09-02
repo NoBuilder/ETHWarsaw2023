@@ -168,36 +168,32 @@ type TokenTransfer = {
     decimals: number
   }
   from: {
-    addresses: string[] // Updated to an array of strings
-    socials:
-      | {
-          dappName: string
-          profileName: string
-        }[]
-      | null // Added null based on the provided response
-    domains: {
+    addresses: Array<string> // Updated to an array of strings
+    socials: Array<{
       dappName: string
-    }[]
+      profileName: string
+    }> | null // Added null based on the provided response
+    domains: Array<{
+      dappName: string
+    }>
   }
   to: {
-    addresses: string[] // Updated to an array of strings
-    socials:
-      | {
-          dappName: string
-          profileName: string
-        }[]
-      | null // Added null based on the provided response
-    domains: {
+    addresses: Array<string> // Updated to an array of strings
+    socials: Array<{
+      dappName: string
+      profileName: string
+    }> | null // Added null based on the provided response
+    domains: Array<{
       name: string
       dappName: string
-    }[]
+    }>
   }
   type: string
 }
 
 async function getRelatedAddressesByTokenTransfer(
   userEthAddress: string
-): Promise<SocialMediaInfo[]> {
+): Promise<Array<SocialMediaInfo>> {
   const query = `
     query GetTokenTransfers($address: [Identity!]) {
         TokenTransfers(
@@ -259,7 +255,7 @@ async function getRelatedAddressesByTokenTransfer(
   const data = await response.json()
 
   function extractSocialInfo(
-    socials: { dappName: string; profileName: string }[],
+    socials: Array<{ dappName: string; profileName: string }>,
     address: string
   ): SocialMediaInfo | null {
     for (const social of socials) {
@@ -276,13 +272,14 @@ async function getRelatedAddressesByTokenTransfer(
         }
       }
     }
+
     return null
   }
 
-  const profiles: SocialMediaInfo[] = []
+  const profiles: Array<SocialMediaInfo> = []
 
   if (data && data.data && data.data.TokenTransfers) {
-    const tokenTransfers: TokenTransfer[] =
+    const tokenTransfers: Array<TokenTransfer> =
       data.data.TokenTransfers.TokenTransfer
     for (const transfer of tokenTransfers) {
       // For 'from' address
@@ -294,9 +291,9 @@ async function getRelatedAddressesByTokenTransfer(
           transfer.from.socials || [],
           transfer.from.addresses[0]
         )
+
         if (socialInfo) profiles.push(socialInfo)
       }
-
       // For 'to' address
       if (
         transfer.to.addresses[0] !==
@@ -306,12 +303,14 @@ async function getRelatedAddressesByTokenTransfer(
           transfer.to.socials || [],
           transfer.to.addresses[0]
         )
+
         if (socialInfo) profiles.push(socialInfo)
       }
     }
 
     // Filter out addresses without social media and remove duplicates
     const seenAddresses = new Set<string>()
+
     return profiles.filter(profile => {
       if (
         profile.name &&
@@ -319,13 +318,15 @@ async function getRelatedAddressesByTokenTransfer(
         !seenAddresses.has(profile.profileInfo.userAddress)
       ) {
         seenAddresses.add(profile.profileInfo.userAddress)
+
         return true
       }
+
       return false
     })
-  } else {
-    throw new Error('Failed to fetch token transfers')
   }
+
+  throw new Error('Failed to fetch token transfers')
 }
 
 // To get suggestion, you can use  getRelatedAddressesByTokenTransfer("0x6f73ea756bd57d3adcafb73a4f5fcd750ec1c387") conjointely to

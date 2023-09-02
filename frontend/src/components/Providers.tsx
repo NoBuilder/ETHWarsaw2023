@@ -7,7 +7,6 @@ import { wagmiConfig } from '@/lib/wagmi'
 
 export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => (
   <QueryClientProvider client={queryClient}>
-    <WagmiConfig config={wagmiConfig}></WagmiConfig>
-    {children}
+    <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
   </QueryClientProvider>
 )

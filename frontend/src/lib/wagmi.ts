@@ -8,7 +8,6 @@ const { publicClient, webSocketPublicClient } = configureChains(
 )
 
 export const wagmiConfig = createConfig({
-  autoConnect: true,
   publicClient,
   webSocketPublicClient
 })
