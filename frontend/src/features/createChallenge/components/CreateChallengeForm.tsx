@@ -148,27 +148,6 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
               </div>
             )}
           </Field>
-          <Field<CreateChallengeFormSchema['bounty']>
-            name="bounty"
-            onBlurValidate={createChallengeFormBountySchema}
-            onChangeValidate={
-              isSubmitted ? createChallengeFormBountySchema : undefined
-            }
-          >
-            {({ value, setValue, onBlur, errors }) => (
-              <Input
-                id="bounty"
-                type="number"
-                value={value}
-                onChange={e => setValue(Number(e.target.value))}
-                onBlur={onBlur}
-                placeholder="48000"
-                disabled={isLoading}
-                label="Stake"
-                errorMessage={errors}
-              />
-            )}
-          </Field>
           <Field<CreateChallengeFormSchema['endDate']>
             name="endDate"
             onBlurValidate={createChallengeFormEndDateSchema}
@@ -177,7 +156,7 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
             }
           >
             {({ value, setValue }) => (
-              <div className="flex flex-col gap-1">
+              <div className="mb-10 flex flex-col gap-1">
                 <Label>Deadline</Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -208,6 +187,27 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
               </div>
             )}
           </Field>
+          <Field<CreateChallengeFormSchema['bounty']>
+            name="bounty"
+            onBlurValidate={createChallengeFormBountySchema}
+            onChangeValidate={
+              isSubmitted ? createChallengeFormBountySchema : undefined
+            }
+          >
+            {({ value, setValue, onBlur, errors }) => (
+              <Input
+                id="bounty"
+                type="number"
+                value={value}
+                onChange={e => setValue(Number(e.target.value))}
+                onBlur={onBlur}
+                placeholder="48000"
+                disabled={isLoading}
+                label="Stake"
+                errorMessage={errors}
+              />
+            )}
+          </Field>
           <Field<CreateChallengeFormSchema['beneficiary']>
             name="beneficiary"
             onBlurValidate={createChallengeFormBeneficiarySchema}
@@ -216,7 +216,7 @@ export const CreateChallengeForm: React.FC<CreateChallengeFormProps> = ({
             }
           >
             {({ value, setValue }) => (
-              <div className="flex flex-col gap-1">
+              <div className="mt-10 flex flex-col gap-1">
                 <Label>Beneficiary</Label>
                 <Select
                   defaultValue={value}

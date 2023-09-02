@@ -6,7 +6,7 @@ export const createChallengeFormSchema = z.object({
   endDate: z.number(),
   bounty: z.number().gt(0),
   beneficiary: z.string(),
-  jury: z.array(z.string()).length(3)
+  jury: z.array(z.string()).length(1)
 })
 
 export const createChallengeFormTitleSchema =
