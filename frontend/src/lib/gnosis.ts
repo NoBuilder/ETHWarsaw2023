@@ -17,6 +17,7 @@ export const deploySafe = async (safeAccountConfig: SafeAccountConfig) => {
   const safeFactory = await SafeFactory.create({ ethAdapter })
   const safe = await safeFactory.deploySafe({
     safeAccountConfig,
+    saltNonce: Date.now().toString(),
     options: { gasLimit: 400_000 }
   })
 

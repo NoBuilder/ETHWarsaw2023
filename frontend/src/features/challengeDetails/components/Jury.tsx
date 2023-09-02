@@ -7,7 +7,7 @@ import AvatarPlaceholder from '@/public/images/judge-avatar.webp'
 import { JuryButtons } from './JuryButtons'
 
 type JuryProps = {
-  jury: JuryMember[]
+  jury: Array<JuryMember>
 }
 
 export const Jury: React.FC<JuryProps> = ({ jury }) => {

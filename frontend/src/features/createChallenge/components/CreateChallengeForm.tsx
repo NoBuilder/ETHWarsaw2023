@@ -18,6 +18,9 @@ import {
 } from '../schemas'
 
 export const CreateChallengeForm = () => {
+  const MOCKED_BENEFICIARY_ADDRESS =
+    '0xc449fe37fa135e67eb8cfe3f6e4f1aca0b672655'
+
   const {
     isConnected,
     isConnecting,
@@ -36,7 +39,7 @@ export const CreateChallengeForm = () => {
           createChallenge({
             title: data.title,
             address,
-            beneficiary: address,
+            beneficiary: MOCKED_BENEFICIARY_ADDRESS,
             endDate: 213124124,
             value: data.bounty,
             juryAddress: [
