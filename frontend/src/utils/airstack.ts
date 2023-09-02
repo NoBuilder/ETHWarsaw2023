@@ -126,7 +126,7 @@ async function getENSProfileName(ethAddress: string): Promise<string | null> {
   return null
 }
 
-function getAvatarUrl(profileName: string): string | null {
+export function getAvatarUrl(profileName: string): string | null {
   return `https://metadata.ens.domains/mainnet/avatar/${profileName}`
 }
 

@@ -1,6 +1,7 @@
 import { Image } from '@/components'
 import { Beneficiary, JuryMember } from '@/models'
 import { Countdown } from './Countdown'
+import { Jury } from './Jury'
 
 type DetailsCardProps = {
   title: string
@@ -62,28 +63,7 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
           />
         </div>
         <p className="text-sm font-semibold ">{beneficiary.name}</p>
-        <div className="flex flex-wrap justify-center gap-6">
-          {jury.map(member => (
-            <div
-              key={member.name}
-              className="flex flex-col items-center gap-2"
-            >
-              <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                <Image
-                  src={
-                    member.avatar ||
-                    'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010'
-                  }
-                  fill
-                  alt={member.name}
-                />
-              </div>
-              <p className="text-xs font-semibold text-gray-500">
-                {member.name}
-              </p>
-            </div>
-          ))}
-        </div>
+        <Jury jury={jury} />
       </div>
     </div>
   </article>

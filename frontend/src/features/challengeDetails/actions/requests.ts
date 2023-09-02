@@ -27,13 +27,11 @@ export const getChallengeDetails = async (
         jury: [
           {
             name: 'Jury member 1',
-            address: '0x1234567890123456789012345678901234567890',
-            avatar: 'https://picsum.photos/200/300'
+            address: '0x16D6dF27993D0aEcE005F0a94107229f3843Bcf6'
           },
           {
             name: 'Jury member 2',
-            address: '0x1234567890123456789012345678901234567890',
-            avatar: 'https://picsum.photos/200/300'
+            address: '0x1234567890123456789012345678901234567890'
           },
           {
             name: 'Jury member 3',
