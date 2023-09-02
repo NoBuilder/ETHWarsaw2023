@@ -157,3 +157,149 @@ function getAvatarUrl(profileName: string): string | null {
 //     }
 //   ]
 // ```
+
+
+type TokenTransfer = {
+    amount: string;
+    formattedAmount: number;
+    blockTimestamp: string;
+    token: {
+        symbol: string;
+        name: string;
+        decimals: number;
+    };
+    from: {
+        addresses: string[];  // Updated to an array of strings
+        socials: {
+            dappName: string;
+            profileName: string;
+        }[] | null;  // Added null based on the provided response
+        domains: {
+            dappName: string;
+        }[];
+    };
+    to: {
+        addresses: string[];  // Updated to an array of strings
+        socials: {
+            dappName: string;
+            profileName: string;
+        }[] | null;  // Added null based on the provided response
+        domains: {
+            name: string;
+            dappName: string;
+        }[];
+    };
+    type: string;
+};
+
+async function getRelatedAddressesByTokenTransfer(userEthAddress: string): Promise<SocialMediaInfo[]> {
+    const query = `
+    query GetTokenTransfers($address: [Identity!]) {
+        TokenTransfers(
+          input: {
+            filter: {
+              _or: [
+                {from: {_in: $address}},
+                {to: {_in: $address}}
+              ]
+            },
+            blockchain: ethereum,
+            limit: 100
+          }
+        ) {
+          TokenTransfer {
+            from {
+              addresses
+              socials {
+                dappName
+                profileName
+              }
+            }
+            to {
+              addresses
+              socials {
+                dappName
+                profileName
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const variables = {
+        address: [userEthAddress]
+    };
+
+    const response = await fetch(AIRSTACK_API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${AIRSTACK_API_KEY}`
+        },
+        body: JSON.stringify({
+            query,
+            variables
+        })
+    });
+
+    if (!response.ok) {
+        console.error(`API responded with status: ${response.status} - ${response.statusText}`);
+        console.error(await response.text());
+        throw new Error('Failed to fetch token transfers due to API error');
+    }
+
+    const data = await response.json();
+
+    function extractSocialInfo(socials: { dappName: string; profileName: string; }[], address: string): SocialMediaInfo | null {
+        for (const social of socials) {
+            if (social.profileName && social.dappName) {
+                return {
+                    name: social.profileName,
+                    avatar: getAvatarUrl(social.profileName),
+                    profileInfo: {
+                        dappName: social.dappName,
+                        profileName: social.profileName,
+                        userId: social.profileName, // Assuming profileName is the userId, modify if needed
+                        userAddress: address
+                    }
+                };
+            }
+        }
+        return null;
+    }
+
+    const profiles: SocialMediaInfo[] = [];
+
+    if (data && data.data && data.data.TokenTransfers) {
+        const tokenTransfers: TokenTransfer[] = data.data.TokenTransfers.TokenTransfer;
+        for (const transfer of tokenTransfers) {
+            // For 'from' address
+            if (transfer.from.addresses[0] !== '0x0000000000000000000000000000000000000000') {
+                const socialInfo = extractSocialInfo(transfer.from.socials || [], transfer.from.addresses[0]);
+                if (socialInfo) profiles.push(socialInfo);
+            }
+
+            // For 'to' address
+            if (transfer.to.addresses[0] !== '0x0000000000000000000000000000000000000000') {
+                const socialInfo = extractSocialInfo(transfer.to.socials || [], transfer.to.addresses[0]);
+                if (socialInfo) profiles.push(socialInfo);
+            }
+        }
+
+        // Filter out addresses without social media and remove duplicates
+        const seenAddresses = new Set<string>();
+        return profiles.filter(profile => {
+            if (profile.name && profile.profileInfo.dappName && !seenAddresses.has(profile.profileInfo.userAddress)) {
+                seenAddresses.add(profile.profileInfo.userAddress);
+                return true;
+            }
+            return false;
+        });
+    } else {
+        throw new Error('Failed to fetch token transfers');
+    }
+}
+
+// To get suggestion, you can use  getRelatedAddressesByTokenTransfer("0x6f73ea756bd57d3adcafb73a4f5fcd750ec1c387") conjointely to
+// getSocialMediaInfo with a hardcoded list of addresses.
