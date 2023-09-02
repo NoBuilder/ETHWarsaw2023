@@ -3,7 +3,7 @@ import { configureChains, createConfig } from 'wagmi'
 import { celo } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
-export const provider = new providers.Web3Provider(window.ethereum, 'any')
+export const provider = typeof window !== 'undefined' && typeof window?.ethereum !== 'undefined' ? new providers.Web3Provider(window.ethereum, 'any') : undefined
 
 const { publicClient, webSocketPublicClient } = configureChains(
   [celo],

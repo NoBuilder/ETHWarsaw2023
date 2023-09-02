@@ -6,6 +6,10 @@ import { ethers } from 'ethers'
 import { provider } from './wagmi'
 
 export const deploySafe = async (safeAccountConfig: SafeAccountConfig) => {
+  if (!provider) {
+    throw new Error('No provider')
+  }
+
   await provider.send('eth_requestAccounts', [])
   const signer = provider.getSigner()
   const ethAdapter = new EthersAdapter({
