@@ -1,8 +1,8 @@
-'use client'
-
+import { useQuery } from '@tanstack/react-query'
 import { Image } from '@/components'
+import { QueryKey } from '@/lib/reactQuery'
 import { Beneficiary, JuryMember } from '@/models'
-import { useGetChallenge } from '../hooks/useGetChallenge'
+import { getChallenge } from '../actions/requests'
 import { Countdown } from './Countdown'
 import { Jury } from './Jury'
 
@@ -18,7 +18,7 @@ type DetailsCardProps = {
   jury: Array<JuryMember>
 }
 
-export const DetailsCard: React.FC<DetailsCardProps> = async ({
+export const DetailsCard: React.FC<DetailsCardProps> = ({
   description,
   title,
   stake,
@@ -29,8 +29,11 @@ export const DetailsCard: React.FC<DetailsCardProps> = async ({
   beneficiary,
   jury
 }) => {
-  const { challenge: challenge0 } = await useGetChallenge(0)
-  console.log('challenge1', challenge0)
+  const id = 0
+  const { data } = useQuery([QueryKey.getChallenge, id], () =>
+    getChallenge({ id })
+  )
+  console.log('react query data', data)
 
   return (
     <article className="flex w-full max-w-xl flex-col  overflow-hidden rounded-3xl shadow-xl">

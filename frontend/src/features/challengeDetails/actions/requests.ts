@@ -1,6 +1,20 @@
+import { Contract, ethers } from 'ethers'
+import { contractDetails } from '@/config'
 import { request } from '@/lib/axios'
+import { provider } from '@/lib/wagmi'
 import { Challenge } from '@/models'
-import { GetChallengeDetailsRequest } from '../types'
+import { GetChallengeDetailsRequest, GetChallengeRequest } from '../types'
+
+export const getChallenge = async (req: GetChallengeRequest) => {
+  const contract = new Contract(
+    contractDetails.address,
+    contractDetails.abi,
+    provider
+  )
+  const challenge = await contract.challengeById(ethers.BigNumber.from(req.id))
+
+  return challenge
+}
 
 export const getChallengeDetails = async (
   req: GetChallengeDetailsRequest

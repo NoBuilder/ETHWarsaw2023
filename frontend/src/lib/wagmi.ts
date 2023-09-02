@@ -1,3 +1,5 @@
+'use client'
+
 import { providers } from 'ethers'
 import { configureChains, createConfig } from 'wagmi'
 import { celo } from 'wagmi/chains'

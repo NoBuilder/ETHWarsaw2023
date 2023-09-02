@@ -1,3 +1,5 @@
+'use client'
+
 import { Challenge } from '@/models'
 import { DetailsCard } from './components'
 
