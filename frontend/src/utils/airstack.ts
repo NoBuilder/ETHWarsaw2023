@@ -12,7 +12,7 @@ interface SocialMediaInfo {
   }
 }
 
-async function getSocialMediaInfo(
+export async function getSocialMediaInfo(
   ethAddresses: Array<string>
 ): Promise<Array<SocialMediaInfo>> {
   const results = await Promise.all(
