@@ -18,7 +18,12 @@ const Page: React.FC<PageProps> = async ({ params: { challengeId } }) => {
     return notFound()
   }
 
-  return <ChallengeDetailsPage challenge={data} />
+  return (
+    <ChallengeDetailsPage
+      challenge={data}
+      challengeId={challengeId}
+    />
+  )
 }
 
 export const generateMetadata = async ({

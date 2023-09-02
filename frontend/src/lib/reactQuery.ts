@@ -16,5 +16,7 @@ export const QueryKey = {
   createChallenge: 'createChallenge',
   getChallenge: 'getChallenge',
   getChallenges: 'getChallenges',
-  getLastId: 'getLastId'
+  getLastId: 'getLastId',
+  getJury: 'getJury',
+  signTransaction: 'signTransaction'
 }

@@ -7,3 +7,4 @@ export const contractDetails = {
   abi,
   address
 }
+console.warn('contractDetails.address', contractDetails.address)
