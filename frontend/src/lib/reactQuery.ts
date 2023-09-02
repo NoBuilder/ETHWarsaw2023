@@ -13,5 +13,5 @@ export const queryClient = new QueryClient({
 })
 
 export const QueryKey = {
-  test: 'test'
+  createChallenge: 'createChallenge'
 }

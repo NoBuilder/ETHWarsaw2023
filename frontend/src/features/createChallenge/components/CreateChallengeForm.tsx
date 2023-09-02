@@ -18,11 +18,30 @@ import {
 } from '../schemas'
 
 export const CreateChallengeForm = () => {
-  const { isConnected, isConnecting, connect } = useCreateChallenge()
+  const {
+    isConnected,
+    isConnecting,
+    connect,
+    createChallenge,
+    error,
+    isLoading,
+    address
+  } = useCreateChallenge()
 
   return (
     <Form<CreateChallengeFormSchema>
-      onSubmit={data => alert(JSON.stringify(data))}
+      onSubmit={data => {
+        // TODO get proper beneficiary address, endDate and gnosisSafe
+        if (address) {
+          createChallenge({
+            title: data.title,
+            address,
+            beneficiary: address,
+            endDate: 213124124,
+            value: data.bounty
+          })
+        }
+      }}
     >
       {({ submit, isSubmitted }) => (
         <form
@@ -46,7 +65,7 @@ export const CreateChallengeForm = () => {
                 onChange={e => setValue(e.target.value)}
                 onBlur={onBlur}
                 placeholder="Title"
-                // disabled={isLoading}
+                disabled={isLoading}
                 label="Title"
                 errorMessage={errors}
               />
@@ -68,7 +87,7 @@ export const CreateChallengeForm = () => {
                   onChange={e => setValue(e.target.value)}
                   onBlur={onBlur}
                   placeholder="description"
-                  // disabled={isLoading}
+                  disabled={isLoading}
                 />
                 <StatusMessage variant="error">{errors[0]}</StatusMessage>
               </div>
@@ -89,7 +108,7 @@ export const CreateChallengeForm = () => {
                 onChange={e => setValue(Number(e.target.value))}
                 onBlur={onBlur}
                 placeholder="48000"
-                // disabled={isLoading}
+                disabled={isLoading}
                 label="Stake"
                 errorMessage={errors}
               />
@@ -98,9 +117,9 @@ export const CreateChallengeForm = () => {
           {isConnected ? (
             <Button
               type="submit"
-              disabled={false}
+              disabled={isLoading}
             >
-              {false && <LoaderCircle />}
+              {isLoading && <LoaderCircle />}
               Create challenge
             </Button>
           ) : (
@@ -111,6 +130,9 @@ export const CreateChallengeForm = () => {
               {isConnecting && <LoaderCircle />}
               Connect wallet
             </Button>
+          )}
+          {error && (
+            <StatusMessage variant="error">{error.shortMessage}</StatusMessage>
           )}
         </form>
       )}
